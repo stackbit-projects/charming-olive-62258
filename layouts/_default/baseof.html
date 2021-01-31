@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+    <head>    
+
+        <title>{{ if .Title }}{{ $.Title }} - {{ end }}{{ .Site.Title }}</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="description" content="{{ .Params.excerpt | default .Site.Params.description }}"/>
+        <link href="https://fonts.googleapis.com/css?family=PT+Serif:400,700%7CRoboto:400,400i,700,700i&display=swap" rel="stylesheet"> 
+        <link rel="stylesheet" href="{{ (resources.Get "sass/main.scss" | resources.ExecuteAsTemplate "assets/css/main.css" . | resources.ToCSS (dict "indentWidth" 4 "outputStyle" "nested" "precision" 10)).Permalink }}">
+        {{ if eq .Params.layout "post" }} 
+        {{ if $.Params.canonical_url }}
+        <link rel="canonical" href="{{ $.Params.canonical_url }}"/>
+        {{ end }}
+        {{ end }}
+        {{ if .Site.Params.favicon }}
+        <link rel="icon" href="{{ $.Site.Params.favicon | relURL }}">
+        {{ end }}
+        
+    </head>
+    <body>
+        
+        <div id="page" class="site layout-{{ .Site.Params.layout_style }} palette-{{ .Site.Params.palette }}">
+        
+            {{ partial "header.html" . }}
+        
+            <div id="content" class="site-content outer">
+              <main id="main" class="site-main inner">
+        
+                {{ block "content" . }}{{ end }}
+        
+              </main><!-- .site-main -->
+            </div><!-- .site-content -->
+        
+            {{ if .Site.Params.footer.has_subscribe }}
+              {{ partial "subscribe.html" . }}
+            {{ end }}
+        
+            {{ partial "footer.html" . }}
+        
+          </div><!-- .site -->
+        <!-- Scripts -->
+        <script src="{{ "assets/js/plugins.js" | relURL }}"></script>
+        <script src="{{ "assets/js/main.js" | relURL }}"></script>
+    </body> 
+</html>
