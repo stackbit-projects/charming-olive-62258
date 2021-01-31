@@ -2,7 +2,7 @@ title: Stackbit Ampersand Theme
 baseURL: /
 params:
   description: Medium inspired blogging theme for Stackbit
-  layout_style: grid
+  layout_style: list
   palette: green
   header:
     title: Ampersand
